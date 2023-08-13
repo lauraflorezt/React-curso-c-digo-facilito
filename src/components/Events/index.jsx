@@ -1,11 +1,9 @@
-
+import useEventsData from "../../hooks/useEventsData";
 import EventItem from "./components/Eventitem";
-import data from "../../data/events.json";
+
 
 const Events = ({ searchTerm }) => {
-const {
-  _embedded: { events },
-} = data;
+    const { events } = useEventsData();
 
 const handleEventItemClik = (id) => {
     console.log('evento clikeado: ', id);
