@@ -1,13 +1,30 @@
-import data from '../data/events.json'
+import { useState } from 'react';
 
+// Hook para hacer una llamada a la API y guardarlo en tu estado local
 const useEventsData = () => {
-    const {
-        _embedded: { events },
-      } = data;
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState();
 
-      return {
-        events
-      };
+    const fetchEvents = async (params) => {
+        try {
+            const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=p9eVOws1vVfmUnEJcCuQvhSU8ZZYUEr0&CountryCode=MX${params?.length ? params : ''}`);
+            const data = await response.json();
+
+            setData(data);
+            setIsLoading(false);
+        } catch (error) {
+            setError(error);
+        }
+    };
+
+    return {
+        events: data?._embedded?.events || [],
+        page: data?.page || {},
+        isLoading,
+        error,
+        fetchEvents,
+    };
 };
 
-export default useEventsData
+export default useEventsData;
