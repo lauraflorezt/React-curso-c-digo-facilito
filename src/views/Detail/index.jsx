@@ -2,7 +2,6 @@
 // import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-// este es para la fecha local
 
 // import useEventsResults from "../../state/events-results";
 import eventFetcher from '../../utils/fetchEvents';

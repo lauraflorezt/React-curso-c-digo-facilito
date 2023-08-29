@@ -50,7 +50,7 @@ const Home = () => {
                     nextClassName={styles.next}
                     previousClassName={styles.previous}
                     pageClassName={styles.page}
-                    activeClassName={styles.activePage}
+                    activeClassName={styles.activePage} // pagina activa
                     disabledClassName={styles.disabledPage}
                     breakLabel="..."
                     nextLabel=">"

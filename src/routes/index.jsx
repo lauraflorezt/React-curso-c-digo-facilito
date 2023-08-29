@@ -1,39 +1,50 @@
-import { element } from "prop-types";
 import {
     createBrowserRouter,
     RouterProvider,
   } from "react-router-dom";
-  import Home from "../views/Home";
-  import Detail from "../views/Deatail";
-  import Error404 from "../views/Error404";
-  import Profile from "../views/Profile";
+import { Suspense } from "react";
+
+import Home from "../views/Home";
+import Detail from "../views/Detail";
+import Error404 from "../views/Error404";
+import ErrorBoundary from "../components/ErrorBoundary";
+
+import Profile from "../views/Profile";
+import LikedEvents from '../views/Profile/components/LikedEvents';
+import MyInfo from "../views/Profile/components/MyInfo";
 
 const router = createBrowserRouter([
     {
-        path:'/',
-        element: <Home/>,
-        errorElement: <Error404/>,
+        path: '/',
+        element: <Home />,
+        errorElement: <Error404 />,
     },
+    //esta ruta recibe un parametro adicional que va ser eventId
     {
         path: '/detail/:eventId',
-        element: <Detail/>,
+        element: (
+            <Suspense fallback={<div>Cargando...</div>}>
+                <ErrorBoundary fallback={<div>Ha ocurrido un error al obtener el detalle</div>}>
+                    <Detail />
+                </ErrorBoundary>
+            </Suspense>
+        )
     },
     {
         path: '/profile',
-        element: <Profile/>,
+        element: <Profile />,
         children: [
             {
                 path: 'my-info',
-                element: <div>My Info</div>,
-            },{
+                element: <MyInfo />
+            }, {
                 path: 'liked-events',
-                element: <div>Liked Events</div>,
+                element: <LikedEvents />
             }
-        ]
+        ],
     }
 ]);
 
-const MyRoutes = () => <RouterProvider router={router} />
+const MyRoutes = () => <RouterProvider router={router} />;
 
-
-export default MyRoutes
+export default MyRoutes;

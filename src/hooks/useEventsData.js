@@ -8,7 +8,7 @@ const useEventsData = () => {
 
     const fetchEvents = async (params) => {
         try {
-            const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=p9eVOws1vVfmUnEJcCuQvhSU8ZZYUEr0&CountryCode=MX${params?.length ? params : ''}`);
+            const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?apikey=${import.meta.env.VITE_TICKETMASTER_API_KEY}&countryCode=MX${params?.length ? params : ''}`);
             const data = await response.json();
 
             setData(data);
